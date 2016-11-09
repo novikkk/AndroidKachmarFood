@@ -12,6 +12,7 @@ import android.widget.ListView;
 
 import com.android.volley.toolbox.StringRequest;
 import com.google.gson.JsonArray;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -47,7 +48,7 @@ public class UiWithRecept extends AppCompatActivity {
             llm.setOrientation(LinearLayoutManager.VERTICAL);
             rv.setLayoutManager(llm);
 
-            RVAdapter adapter = new RVAdapter(recepts);
+            RVAdapter adapter = new RVAdapter(recepts,Picasso.with(this));
             rv.setAdapter(adapter);
 
         }

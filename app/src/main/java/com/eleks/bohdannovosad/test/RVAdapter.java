@@ -2,6 +2,7 @@ package com.eleks.bohdannovosad.test;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -23,9 +26,11 @@ import java.util.List;
 public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ReceptViewHolder>{
 
     List<UiWithRecept.Recept> recepts ;
+    Picasso picasso;
 
-    public RVAdapter(List<UiWithRecept.Recept> recepts){
+    public RVAdapter(List<UiWithRecept.Recept> recepts, Picasso picasso){
         this.recepts = recepts;
+        this.picasso = picasso;
     }
 
     @Override
@@ -44,7 +49,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ReceptViewHolder>{
     public void onBindViewHolder(ReceptViewHolder holder, int position) {
         holder.title.setText(recepts.get(position).name);
         holder.ingredients.setText(recepts.get(position).ing);
-
+        picasso.load(Uri.parse(recepts.get(position).thumbnail)).resize(200,200).into(holder.photo);
 //        URL url = null;
 //        try {
 //            url = new URL(recepts.get(position).thumbnail);
