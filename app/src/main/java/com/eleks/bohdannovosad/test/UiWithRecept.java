@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.ListView;
 
 import com.android.volley.toolbox.StringRequest;
@@ -48,7 +49,8 @@ public class UiWithRecept extends AppCompatActivity {
             llm.setOrientation(LinearLayoutManager.VERTICAL);
             rv.setLayoutManager(llm);
 
-            RVAdapter adapter = new RVAdapter(recepts,Picasso.with(this));
+            RVAdapter adapter = new RVAdapter(recepts,Picasso.with(this),this);
+
             rv.setAdapter(adapter);
 
         }

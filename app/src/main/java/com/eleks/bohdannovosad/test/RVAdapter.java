@@ -1,5 +1,7 @@
 package com.eleks.bohdannovosad.test;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -25,10 +27,12 @@ import java.util.List;
 
 public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ReceptViewHolder>{
 
+    private Context context;
     List<UiWithRecept.Recept> recepts ;
     Picasso picasso;
 
-    public RVAdapter(List<UiWithRecept.Recept> recepts, Picasso picasso){
+    public RVAdapter(List<UiWithRecept.Recept> recepts, Picasso picasso, Context context){
+        this.context = context;
         this.recepts = recepts;
         this.picasso = picasso;
     }
@@ -46,10 +50,19 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ReceptViewHolder>{
     }
 
     @Override
-    public void onBindViewHolder(ReceptViewHolder holder, int position) {
+    public void onBindViewHolder(ReceptViewHolder holder, final int position) {
         holder.title.setText(recepts.get(position).name);
         holder.ingredients.setText(recepts.get(position).ing);
         picasso.load(Uri.parse(recepts.get(position).thumbnail)).resize(200,200).into(holder.photo);
+        holder.cv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(recepts.get(position).href));
+                context.startActivity(i);
+
+            }
+        });
 //        URL url = null;
 //        try {
 //            url = new URL(recepts.get(position).thumbnail);
@@ -83,6 +96,8 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ReceptViewHolder>{
             ingredients = (TextView)itemView.findViewById(R.id.ingrediences2);
             photo = (ImageView)itemView.findViewById(R.id.photo2);
         }
+
+
     }
 
 }
